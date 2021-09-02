@@ -1,0 +1,75 @@
+version: '3.1'
+
+#Se definen los servicios: Aplicaciones que vamos a desplegar
+
+services:
+#database engine service
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+    ports:
+      - 5432:5432
+    volumes:
+        #allow *.sql, *.sql.gz, or *.sh and is execute only if data directory is empty
+      - ./dbfiles:/docker-entrypoint-initdb.d
+      - /var/lib/postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: postgres    
+
+
+#database admin service
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    depends_on: 
+      - postgres_db
+    ports:
+       - 9090:8080
+
+
+#Billin app backend service
+  billingapp-back:
+  #Para que cree la imagen a partir del Dockerfile en la carpeta java
+    build:
+      context: ./java
+      args:
+        - JAR_FILE=*.jar
+    container_name: billingApp-back      
+    environment:
+       - JAVA_OPTS=
+         -Xms256M 
+         -Xmx256M         
+    depends_on:     
+      - postgres_db
+    ports:
+      - 8080:8080 
+
+
+#Billin app frontend service
+  billingapp-front:
+  #Para que cree la imagen a partir del Dockerfile en la carpeta angular
+    build:
+      context: ./angular 
+    #Para escalar y limitar los recursos del contenedor
+    deploy:
+    #Cantidad de replicas que deseamos
+        replicas: 3
+        resources:
+          limits:
+        #Puede usar hasta el 15% de la CPU
+            cpus: "0.15"
+            memory: 250M
+          reservations:
+            cpus: 0.1
+            memory: 128M
+    #container_name: billingApp-front
+    depends_on:     
+      - billingapp-back
+    #Rango de puertos para escalado
+    ports:
+      - 80-85:80 
