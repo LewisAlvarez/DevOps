@@ -4,7 +4,6 @@ metadata:
   name: postgres-deployment
   labels:
     app: postgres
-    #A continuacion se definen todos los detalles de la imagen y PODS que se van a entender
 spec:
 #Pods number replicates
   replicas: 1
@@ -23,14 +22,14 @@ spec:
         - name: postgres
           image: postgres:latest
           imagePullPolicy: IfNotPresent
-          #open the port to allow send and receive traffic in the container
+          #open the port to allow send and receive traffic in teh container
           ports:
             - containerPort: 5432
-            #read envars(variables de entorno) from secret file
+            #read envars from secret file
           envFrom:
             - secretRef:
                 name: postgres-secret
-          volurfmeMounts:
+          volumeMounts:
           #This is the path in the container on which the mounting will take place.
             - mountPath: /var/lib/postgresql/data
               name: postgredb
@@ -43,7 +42,3 @@ spec:
         - name: init-script
           configMap:
              name: postgres-init-script-configmap
-
-
-
-             

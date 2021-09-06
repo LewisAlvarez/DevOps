@@ -4,7 +4,10 @@ metadata:
   name: postgres-service
   labels:
     app: postgres
-spec:  
+spec: 
+  clusterIP: 10.96.1.2 
+  ipFamilies:
+  - IPv4
   ports:
   - name: postgres
     port: 5432
