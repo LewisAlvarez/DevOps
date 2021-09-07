@@ -64,3 +64,5 @@ Hace referencia al hipervisor con el cual se va a trabajar para la orquestacion 
 
 * **kubectl apply -f (nombre del archivo)**: Crear objetos a partir de los arhcivos yaml
 * **kubectl get all**: Obtener informacion general del dashboard
+* **kubectl apply -f ./**: Crear todo
+* **kubectl delete -f ./**: Eliminar todo
