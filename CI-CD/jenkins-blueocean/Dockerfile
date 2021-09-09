@@ -1,3 +1,4 @@
+#Dockerfile para crear una imagen jenkins y maven
 FROM jenkinsci/blueocean
 USER root
 RUN apk update && apk add wget
