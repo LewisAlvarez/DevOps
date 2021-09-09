@@ -27,3 +27,29 @@ La ruta es la siguiente para la configuracion en GitHub:
 
 ![Pasos5webhook](./images/paso5.png)
 
+
+# Crear un Pipeline en Jenkins
+
+Previamente se debe tener lista la configuracion de webhooks. Para hacer la configuracion debemos seguir los pasos mencionados desde el servidor jenkins.
+
+1. Entrar en la opcion *Administrar Jenkins* o *Manage Jenkins*.
+2. Entrar en la opcion *Configuracion de sistema* o *Configure System*
+
+![ConfigSystem](./images/manageJenkins.png)
+
+3. Buscar la opcion de GitHub, y añanar un GitHub Server, poner un nombre y acceder las redenciales.
+
+![GitHubServer](./images/githubServer.png)
+
+## Crear Pipeline basado en eventos webhook
+
+1. Presionar New Item o nueva tarea
+2. Crear un proyecto de estilo libre
+3. Seleccionar Github Project
+4. Tomar URL del repositorio
+5. Configurar el Origen del codigo. Selecionar git.
+6. Agregar url del repositorio y poner las credenciales del repositorio.
+
+7. Para que el evento sea lanzado en automatico por los webhooks configurados
+
+![Trigger](./images/trigger.png)
