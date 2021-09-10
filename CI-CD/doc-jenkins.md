@@ -53,3 +53,5 @@ Previamente se debe tener lista la configuracion de webhooks. Para hacer la conf
 7. Para que el evento sea lanzado en automatico por los webhooks configurados
 
 ![Trigger](./images/trigger.png)
+
+# Crear un Pipeline de Integracion continua
